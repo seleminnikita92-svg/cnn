@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Классификация одежды</title>
+  <link rel="stylesheet" href="/static/theme.css">
+</head>
+<body>
+  <main class="page">
+    <h1>Классификация одежды (CNN)</h1>
+    <p class="desc">Загрузите картинку одежды, обуви или сумки — модель определит класс из Fashion-MNIST.</p>
+
+    <section class="box" aria-labelledby="upload-title">
+      <h2 id="upload-title">Загрузить изображение</h2>
+      <form id="classifier-form" action="/api/classify" method="POST" enctype="multipart/form-data">
+        <div class="row">
+          <label for="garment-picker">Файл изображения (PNG, JPG, WebP) <span aria-hidden="true">*</span></label>
+          <input
+            type="file"
+            id="garment-picker"
+            name="image"
+            accept="image/*"
+            required
+            aria-describedby="picker-rules"
+          >
+          <span id="picker-rules" class="note">До 5 МБ, желательно один объект по центру.</span>
+        </div>
+
+        <div class="check-row">
+          <input type="checkbox" id="invert-toggle" name="invert" value="true" checked>
+          <label for="invert-toggle">Инвертировать цвета (если светлый фон)</label>
+        </div>
+
+        <button type="submit" id="analyze-btn" class="btn">Проверить</button>
+      </form>
+    </section>
+
+    <section id="output-panel" class="box" role="status" aria-live="polite" hidden>
+      <p id="error-banner" class="err" hidden></p>
+
+      <div id="verdict-card" hidden>
+        <h2>Результат</h2>
+        <p class="verdict-line">
+          <strong id="top-label"></strong> — <span id="top-score"></span>
+          <span id="class-code" class="muted"></span>
+        </p>
+
+        <div class="imgs">
+          <figure class="img-card">
+            <img id="src-preview" src="" alt="Загруженная пользователем картинка" width="112" height="112">
+            <figcaption>Исходник</figcaption>
+          </figure>
+          <figure class="img-card">
+            <img id="cnn-preview" src="" alt="Обработанная картинка 28 на 28 пикселей" width="112" height="112">
+            <figcaption>Вход сети (28×28)</figcaption>
+          </figure>
+        </div>
+
+        <div tabindex="0" role="region" aria-labelledby="scores-caption" class="table-wrapper">
+          <table>
+            <caption id="scores-caption">Вероятности по классам</caption>
+            <thead>
+              <tr>
+                <th scope="col">Класс</th>
+                <th scope="col">Вероятность</th>
+              </tr>
+            </thead>
+            <tbody id="scores-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/client.js"></script>
+</body>
+</html>
