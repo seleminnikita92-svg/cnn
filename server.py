@@ -28,7 +28,6 @@ interpreter_lock = threading.Lock()
 
 
 def prepare_image(img, *, invert=False):
-    """PIL-изображение -> float32 [1, 28, 28, 1], значения от 0 до 1."""
     gray = ImageOps.exif_transpose(img).convert('L')
     gray = gray.resize((28, 28), resample=Image.Resampling.LANCZOS)
     pixels = np.asarray(gray, dtype=np.float32)
