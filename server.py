@@ -12,7 +12,7 @@ classes = [
     'Сандалии', 'Рубашка', 'Кроссовки', 'Сумка', 'Ботильоны'
 ]
 
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 МБ
+MAX_FILE_SIZE = 5 * 1024 * 1024
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 WEIGHTS_FILE = os.path.join(PROJECT_ROOT, 'artifacts', 'garment_cnn.tflite')
 
@@ -20,7 +20,6 @@ server = Flask(__name__, template_folder='templates', static_folder='static')
 server.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
 server.config['TEMPLATES_AUTO_RELOAD'] = True
 
-# Загружаем лёгкую TFLite-модель (LiteRT) один раз при старте сервиса
 interpreter = Interpreter(model_path=WEIGHTS_FILE)
 interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()[0]

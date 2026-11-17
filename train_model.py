@@ -14,16 +14,13 @@ classes = [
     'Сандалии', 'Рубашка', 'Кроссовки', 'Сумка', 'Ботильоны'
 ]
 
-# Загружаем датасет Fashion-MNIST
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
-# Нормализуем яркость в [0, 1] и добавляем канал цвета
 x_train = x_train.astype(np.float32) / 255.0
 x_test = x_test.astype(np.float32) / 255.0
 x_train = np.expand_dims(x_train, axis=-1)
 x_test = np.expand_dims(x_test, axis=-1)
 
-# One-hot encoding для 10 классов
 y_train_cat = utils.to_categorical(y_train, 10)
 y_test_cat = utils.to_categorical(y_test, 10)
 
